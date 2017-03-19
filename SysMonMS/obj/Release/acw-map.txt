@@ -1,0 +1,8 @@
+SysMonMS.DetailActivity, SysMonMS;md53add1c7c43f3f364de3d7b7fdcadd06e.DetailActivity
+SysMonMS.DetailActivity, SysMonMS, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md53add1c7c43f3f364de3d7b7fdcadd06e.DetailActivity
+SysMonMS.DetailActivity;md53add1c7c43f3f364de3d7b7fdcadd06e.DetailActivity
+sysmonms.DetailActivity;md53add1c7c43f3f364de3d7b7fdcadd06e.DetailActivity
+SysMonMS.MainActivity, SysMonMS;md53add1c7c43f3f364de3d7b7fdcadd06e.MainActivity
+SysMonMS.MainActivity, SysMonMS, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md53add1c7c43f3f364de3d7b7fdcadd06e.MainActivity
+SysMonMS.MainActivity;md53add1c7c43f3f364de3d7b7fdcadd06e.MainActivity
+sysmonms.MainActivity;md53add1c7c43f3f364de3d7b7fdcadd06e.MainActivity

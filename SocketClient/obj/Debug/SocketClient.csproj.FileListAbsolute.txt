@@ -1,0 +1,5 @@
+C:\ttxy\workspace\SysMonMS\SocketClient\bin\Debug\SocketClient.exe.config
+C:\ttxy\workspace\SysMonMS\SocketClient\bin\Debug\SocketClient.exe
+C:\ttxy\workspace\SysMonMS\SocketClient\bin\Debug\SocketClient.pdb
+C:\ttxy\workspace\SysMonMS\SocketClient\obj\Debug\SocketClient.exe
+C:\ttxy\workspace\SysMonMS\SocketClient\obj\Debug\SocketClient.pdb

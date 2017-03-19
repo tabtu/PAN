@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="SysMonMS.SysMonMS" android:versionCode="1" android:versionName="1.0">
+  <!--suppress UsesMinSdkAttributes-->
+  <uses-sdk android:minSdkVersion="16" />
+  <application android:label="SysMonMS" android:name="android.app.Application" android:allowBackup="true">
+    <activity android:label="Detail" android:name="md53add1c7c43f3f364de3d7b7fdcadd06e.DetailActivity" />
+    <activity android:icon="@drawable/icon" android:label="SysMonMS" android:name="md53add1c7c43f3f364de3d7b7fdcadd06e.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <provider android:name="mono.MonoRuntimeProvider" android:exported="false" android:initOrder="2147483647" android:authorities="SysMonMS.SysMonMS.mono.MonoRuntimeProvider.__mono_init__" />
+  </application>
+</manifest>

@@ -1,0 +1,6 @@
+C:\ttxy\workspace\SysMonMS\SocketServer\bin\Debug\SocketServer.exe.config
+C:\ttxy\workspace\SysMonMS\SocketServer\bin\Debug\SocketServer.exe
+C:\ttxy\workspace\SysMonMS\SocketServer\bin\Debug\SocketServer.pdb
+C:\ttxy\workspace\SysMonMS\SocketServer\obj\Debug\SocketServer.exe
+C:\ttxy\workspace\SysMonMS\SocketServer\obj\Debug\SocketServer.pdb
+C:\ttxy\workspace\SysMonMS\SocketServer\obj\Debug\SocketServer.csprojResolveAssemblyReference.cache
