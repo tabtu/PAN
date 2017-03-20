@@ -11,6 +11,12 @@ namespace SysMonMS
         public int phy_cpu_num;
         public int log_cpu_num;
         public int cpu_num;
+        public int DISK_us;
+        public int DISK_fr;
+        public long MEM_total;
+        public long MEM_phy_F;
+        public long MEM_cach_F;
+        public long MEM_used;
         public double totalWload;
         public double wload1m;
         public double wload5m;
@@ -20,12 +26,6 @@ namespace SysMonMS
         public double CPUload_ni;
         public double CPUload_id;
         public double CPUload_wa;
-        public long MEM_total;
-        public long MEM_phy_F;
-        public long MEM_cach_F;
-        public long MEM_used;
-        public int DISK_us;
-        public int DISK_fr;
 
         public SerMod(string tmp)
         {
@@ -33,43 +33,43 @@ namespace SysMonMS
             phy_cpu_num = int.Parse(sers[0]);
             log_cpu_num = int.Parse(sers[1]);
             cpu_num = int.Parse(sers[2]);
-            totalWload = double.Parse(sers[3]);
-            wload1m = double.Parse(sers[4]);
-            wload5m = double.Parse(sers[5]);
-            wload15m = double.Parse(sers[6]);
-            CPUload_us = double.Parse(sers[7]);
-            CPUload_sy = double.Parse(sers[8]);
-            CPUload_ni = double.Parse(sers[9]);
-            CPUload_id = double.Parse(sers[10]);
-            CPUload_wa = double.Parse(sers[11]);
-            MEM_total = long.Parse(sers[12]);
-            MEM_phy_F = long.Parse(sers[13]);
-            MEM_cach_F = long.Parse(sers[14]);
-            MEM_used = long.Parse(sers[15]);
-            DISK_us = int.Parse(sers[16]);
-            DISK_fr = int.Parse(sers[17]);
+            DISK_us = int.Parse(sers[3]);
+            DISK_fr = int.Parse(sers[4]);
+            MEM_total = long.Parse(sers[5]);
+            MEM_phy_F = long.Parse(sers[6]);
+            MEM_cach_F = long.Parse(sers[7]);
+            MEM_used = long.Parse(sers[8]);
+            totalWload = double.Parse(sers[9]);
+            wload1m = double.Parse(sers[10]);
+            wload5m = double.Parse(sers[11]);
+            wload15m = double.Parse(sers[12]);
+            CPUload_us = double.Parse(sers[13]);
+            CPUload_sy = double.Parse(sers[14]);
+            CPUload_ni = double.Parse(sers[15]);
+            CPUload_id = double.Parse(sers[16]);
+            CPUload_wa = double.Parse(sers[17]);
         }
 
         public SerMod(byte[] tmp)
         {
-            phy_cpu_num = (tmp[0] | tmp[1] << 8 | tmp[2] << 16 | tmp[3] << 24);
-            log_cpu_num = (tmp[4] | tmp[5] << 8 | tmp[6] << 16 | tmp[7] << 24);
-            cpu_num = (tmp[8] | tmp[9] << 8 | tmp[10] << 16 | tmp[11] << 24);
-            totalWload = (tmp[12] | tmp[13] << 8 | tmp[14] << 16 | tmp[15] << 24 | tmp[16] << 32 | tmp[17] << 40 | tmp[18] << 48 | tmp[19] << 56);
-            wload1m = (tmp[20] | tmp[21] << 8 | tmp[22] << 16 | tmp[23] << 24 | tmp[24] << 32 | tmp[25] << 40 | tmp[26] << 48 | tmp[27] << 56);
-            wload5m = (tmp[28] | tmp[29] << 8 | tmp[30] << 16 | tmp[31] << 24 | tmp[32] << 32 | tmp[33] << 40 | tmp[34] << 48 | tmp[35] << 56);
-            wload15m = (tmp[36] | tmp[37] << 8 | tmp[38] << 16 | tmp[39] << 24 | tmp[40] << 32 | tmp[41] << 40 | tmp[42] << 48 | tmp[43] << 56);
-            CPUload_us = (tmp[44] | tmp[45] << 8 | tmp[46] << 16 | tmp[47] << 24 | tmp[48] << 32 | tmp[49] << 40 | tmp[50] << 48 | tmp[51] << 56);
-            CPUload_sy = (tmp[52] | tmp[53] << 8 | tmp[54] << 16 | tmp[55] << 24 | tmp[56] << 32 | tmp[57] << 40 | tmp[58] << 48 | tmp[59] << 56);
-            CPUload_ni = (tmp[60] | tmp[61] << 8 | tmp[62] << 16 | tmp[63] << 24 | tmp[64] << 32 | tmp[65] << 40 | tmp[66] << 48 | tmp[67] << 56);
-            CPUload_id = (tmp[68] | tmp[69] << 8 | tmp[70] << 16 | tmp[71] << 24 | tmp[72] << 32 | tmp[73] << 40 | tmp[74] << 48 | tmp[75] << 56);
-            CPUload_wa = (tmp[76] | tmp[77] << 8 | tmp[78] << 16 | tmp[79] << 24 | tmp[80] << 32 | tmp[81] << 40 | tmp[82] << 48 | tmp[83] << 56);
-            MEM_total = (tmp[84] | tmp[85] << 8 | tmp[86] << 16 | tmp[87] << 24 | tmp[88] << 32 | tmp[89] << 40 | tmp[90] << 48 | tmp[91] << 56);
-            MEM_phy_F = (tmp[92] | tmp[93] << 8 | tmp[94] << 16 | tmp[95] << 24 | tmp[96] << 32 | tmp[97] << 40 | tmp[98] << 48 | tmp[99] << 56);
-            MEM_cach_F = (tmp[100] | tmp[101] << 8 | tmp[102] << 16 | tmp[103] << 24 | tmp[104] << 32 | tmp[105] << 40 | tmp[106] << 48 | tmp[107] << 56);
-            MEM_used = (tmp[108] | tmp[109] << 8 | tmp[110] << 16 | tmp[111] << 24 | tmp[112] << 32 | tmp[113] << 40 | tmp[114] << 48 | tmp[115] << 56);
-            DISK_us = (tmp[116] | tmp[117] << 8 | tmp[118] << 16 | tmp[119] << 24);
-            DISK_fr = (tmp[120] | tmp[121] << 8 | tmp[122] << 16 | tmp[123] << 24);
+            phy_cpu_num = BitConverter.ToInt32(tmp, 0);// (tmp[0] | tmp[1] << 8 | tmp[2] << 16 | tmp[3] << 24);
+            log_cpu_num = BitConverter.ToInt32(tmp, 4);// (tmp[4] | tmp[5] << 8 | tmp[6] << 16 | tmp[7] << 24);
+            cpu_num = BitConverter.ToInt32(tmp, 8);// (tmp[8] | tmp[9] << 8 | tmp[10] << 16 | tmp[11] << 24);
+            DISK_us = BitConverter.ToInt32(tmp, 12);// (tmp[12] | tmp[13] << 8 | tmp[14] << 16 | tmp[15] << 24);
+            DISK_fr = BitConverter.ToInt32(tmp, 16);// (tmp[16] | tmp[17] << 8 | tmp[18] << 16 | tmp[19] << 24);
+            MEM_total = BitConverter.ToInt64(tmp, 24);// (tmp[24] | tmp[25] << 8 | tmp[26] << 16 | tmp[27] << 24 | tmp[28] << 32 | tmp[29] << 40 | tmp[30] << 48 | tmp[31] << 56);
+            MEM_phy_F = BitConverter.ToInt32(tmp, 32);// (tmp[32] | tmp[33] << 8 | tmp[34] << 16 | tmp[35] << 24 | tmp[36] << 32 | tmp[37] << 40 | tmp[38] << 48 | tmp[39] << 56);
+            MEM_cach_F = BitConverter.ToInt32(tmp, 40);// (tmp[40] | tmp[41] << 8 | tmp[42] << 16 | tmp[43] << 24 | tmp[44] << 32 | tmp[45] << 40 | tmp[46] << 48 | tmp[47] << 56);
+            MEM_used = BitConverter.ToInt32(tmp, 48);// (tmp[48] | tmp[49] << 8 | tmp[50] << 16 | tmp[51] << 24 | tmp[52] << 32 | tmp[53] << 40 | tmp[54] << 48 | tmp[55] << 56);
+            totalWload = BitConverter.ToDouble(tmp, 56);// ((tmp[56] | tmp[57] << 8 | tmp[58] << 16 | tmp[59] << 24 | tmp[60] << 32 | tmp[61] << 40 | tmp[62] << 48 | tmp[63] << 56);
+            wload1m = BitConverter.ToDouble(tmp, 64);// ((tmp[64] | tmp[65] << 8 | tmp[66] << 16 | tmp[67] << 24 | tmp[68] << 32 | tmp[69] << 40 | tmp[70] << 48 | tmp[71] << 56);
+            wload5m = BitConverter.ToDouble(tmp, 72);// ((tmp[72] | tmp[73] << 8 | tmp[74] << 16 | tmp[75] << 24 | tmp[76] << 32 | tmp[77] << 40 | tmp[78] << 48 | tmp[79] << 56);
+            wload15m = BitConverter.ToDouble(tmp, 80);// ((tmp[80] | tmp[81] << 8 | tmp[82] << 16 | tmp[83] << 24 | tmp[84] << 32 | tmp[85] << 40 | tmp[86] << 48 | tmp[87] << 56);
+            CPUload_us = BitConverter.ToDouble(tmp, 88);// ((tmp[88] | tmp[89] << 8 | tmp[90] << 16 | tmp[91] << 24 | tmp[92] << 32 | tmp[93] << 40 | tmp[94] << 48 | tmp[95] << 56);
+            CPUload_sy = BitConverter.ToDouble(tmp, 96);// ((tmp[96] | tmp[97] << 8 | tmp[98] << 16 | tmp[99] << 24 | tmp[100] << 32 | tmp[101] << 40 | tmp[102] << 48 | tmp[103] << 56);
+            CPUload_ni = BitConverter.ToDouble(tmp, 104);// ((tmp[104] | tmp[105] << 8 | tmp[106] << 16 | tmp[107] << 24 | tmp[108] << 32 | tmp[109] << 40 | tmp[110] << 48 | tmp[111] << 56);
+            CPUload_id = BitConverter.ToDouble(tmp, 112);// ((tmp[112] | tmp[113] << 8 | tmp[114] << 16 | tmp[115] << 24 | tmp[116] << 32 | tmp[117] << 40 | tmp[118] << 48 | tmp[119] << 56);
+            CPUload_wa = BitConverter.ToDouble(tmp, 120);// ((tmp[120] | tmp[121] << 8 | tmp[122] << 16 | tmp[123] << 24 | tmp[124] << 32 | tmp[125] << 40 | tmp[126] << 48 | tmp[127] << 56);
         }
 
         public string ToStringExt()
@@ -78,6 +78,12 @@ namespace SysMonMS
             result += (phy_cpu_num.ToString() + ";");
             result += (log_cpu_num + ";");
             result += (cpu_num + ";");
+            result += (DISK_us + ";");
+            result += (DISK_fr + ";");
+            result += (MEM_total + ";");
+            result += (MEM_phy_F + ";");
+            result += (MEM_cach_F + ";");
+            result += (MEM_used + ";");
             result += (totalWload + ";");
             result += (wload1m + ";");
             result += (wload5m + ";");
@@ -87,36 +93,8 @@ namespace SysMonMS
             result += (CPUload_ni + ";");
             result += (CPUload_id + ";");
             result += (CPUload_wa + ";");
-            result += (MEM_total + ";");
-            result += (MEM_phy_F + ";");
-            result += (MEM_cach_F + ";");
-            result += (MEM_used + ";");
-            result += (DISK_us + ";");
-            result += (DISK_fr + ";");
-            return result;
-        }
-    }
 
-    public class StringURL
-    {
-        public static bool isEmpty(string input)    //Determine the EditView of the IP address and the port are empty
-        {
-            if (input == null || "".Equals(input))
-            {
-                return true;
-            }
-            else
-            {
-                for (int i = 0; i < input.Length; i++)
-                {
-                    char c = input[i];
-                    if (c != ' ' && c != '\t' && c != '\r' && c != '\n')
-                    {
-                        return false;
-                    }
-                }
-            }
-            return true;
+            return result;
         }
     }
 }

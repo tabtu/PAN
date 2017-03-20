@@ -14,6 +14,7 @@ namespace SysMonMS
     [Activity(Label = "SysMonMS", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
+        private int MdfySS = 136;
         //private Button sp;
         private Button btn_connect;
         private Button btn_cancel;
@@ -23,7 +24,7 @@ namespace SysMonMS
         private TextView tv_status;
 
         private static Socket cSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        private static byte[] result = new byte[256];
+        private static byte[] result = new byte[2048];
         private Thread cThread = null;
 
         private Handler cHandler;
@@ -48,7 +49,7 @@ namespace SysMonMS
             btn_cancel.Enabled = false;
             btn_gtlist.Enabled = false;
 
-            et_ip.Text = "222.222.222.3";
+            et_ip.Text = "10.143.8.235";
             et_port.Text = "18888";
 
             cHandler = new ProgressHandler(this);
@@ -58,19 +59,17 @@ namespace SysMonMS
             {
                 if (StringURL.isEmpty(et_ip.Text) || StringURL.isEmpty(et_port.Text)) //Determine whether the IP address and the port are empty
                 {
-                    tv_status.Append("Please input IP address and port.\n");
+                    tv_status.Append("\nPlease input IP address and port.");
                 }
                 else if (cSocket != null && cSocket.Connected == true)  //Determine whether the client connects to server
                 {
-                    tv_status.Append("Already Connected.\n");
+                    tv_status.Append("\nAlready Connected.");
                 }
                 else
                 {
                     Init(et_ip.Text, int.Parse(et_port.Text));
                     btn_cancel.Enabled = true;
                     btn_connect.Enabled = false;
-                    btn_gtlist.Enabled = true;
-                    //sp.Enabled = true;
                     //tv_status.Append("Connection in process.\n");
                 }
             };
@@ -86,17 +85,8 @@ namespace SysMonMS
 
             btn_gtlist.Click += (object sender, EventArgs e) =>
             {
-                IList<SerMod> test = new List<SerMod>();
-                SerMod t1 = new SerMod("1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;");
-                SerMod t2 = new SerMod("2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;");
-                SerMod t3 = new SerMod("3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;");
-                test.Add(t1);
-                test.Add(t2);
-                test.Add(t3);
-                servlist = test;
-
                 string msg = "";
-                foreach (SerMod ele in test) { msg += (ele.ToStringExt() + "/"); }
+                foreach (SerMod ele in servlist) { msg += (ele.ToStringExt() + "/"); }
                 Intent result = new Intent();
                 result.SetClass(this, typeof(ServActivity));
                 result.PutExtra("servlist", msg);
@@ -118,12 +108,12 @@ namespace SysMonMS
             try
             {
                 cSocket.Connect(new IPEndPoint(ip, port));
-                UpdateMsg("succed");
-                SendMessage("GetServerList");
+                UpdateMsg("Succed");
+                SendMessage("GetData");
             }
             catch
             {
-                UpdateMsg("error");
+                UpdateMsg("Error");
                 return;
             }
 
@@ -138,13 +128,24 @@ namespace SysMonMS
             {
                 try
                 {
-                    int receiveNumber = cSocket.Receive(result);
-                    int tmp = (result[3] | result[2] << 8 | result[1] << 16 | result[0] << 24);
+                    int receiveNumber = cSocket.Receive(result);   // 136byte for each, '\0' in the last
+                    if (receiveNumber > 0)
+                    {
+                        servlist = new List<SerMod>();
+                        int ctmp = receiveNumber / MdfySS;
+                        for (int i = 0; i < ctmp; i++)
+                        {
+                            byte[] btmp = new byte[MdfySS];
+                            Array.Copy(result, i * MdfySS, btmp, 0, MdfySS);
+                            SerMod tmp = new SerMod(btmp);
+                            servlist.Add(tmp);
+                        }
 
-                    Message msg = new Message();
-                    if (tmp == 1)  msg.What = 0x1;
-                    else msg.What = 0x0;
-                    cHandler.SendMessage(msg);
+                        Message msg = new Message();
+                        if (servlist.Count > 0) msg.What = 0x1;
+                        else msg.What = 0x0;
+                        cHandler.SendMessage(msg);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -165,8 +166,8 @@ namespace SysMonMS
         {
             if (cSocket.Connected == true)
             {
-                //cSocket.Shutdown(SocketShutdown.Both);
-                //cSocket.Close();
+                cSocket.Shutdown(SocketShutdown.Both);
+                cSocket.Close();
                 UpdateMsg("Disconnected.");
             }
             else
@@ -189,13 +190,38 @@ namespace SysMonMS
 
                 if (msg.What == 0x1)
                 {
-                    samples.tv_status.Append("12345");
+                    samples.tv_status.Append("\nReceived Data");
+                    samples.btn_gtlist.Enabled = true;
                 }
                 else
                 {
-                    samples.tv_status.Append("67890");
+                    samples.tv_status.Append("\nData Error");
+                    samples.btn_gtlist.Enabled = false;
                 }
             }
+        }
+    }
+
+    public class StringURL
+    {
+        public static bool isEmpty(string input)    //Determine the EditView of the IP address and the port are empty
+        {
+            if (input == null || "".Equals(input))
+            {
+                return true;
+            }
+            else
+            {
+                for (int i = 0; i < input.Length; i++)
+                {
+                    char c = input[i];
+                    if (c != ' ' && c != '\t' && c != '\r' && c != '\n')
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
     }
 }
