@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Threading;
 using System.Text;
+using System.Collections.Generic;
 
 namespace SysMonMS
 {
@@ -18,7 +19,7 @@ namespace SysMonMS
         private Button btn_cancel;
         private Button btn_gtlist;
 
-        private static SerMod serinfo;
+        private static IList<SerMod> servlist;
         private TextView tv_status;
 
         private static Socket cSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -67,6 +68,8 @@ namespace SysMonMS
                 {
                     Init(et_ip.Text, int.Parse(et_port.Text));
                     btn_cancel.Enabled = true;
+                    btn_connect.Enabled = false;
+                    btn_gtlist.Enabled = true;
                     //sp.Enabled = true;
                     //tv_status.Append("Connection in process.\n");
                 }
@@ -83,8 +86,21 @@ namespace SysMonMS
 
             btn_gtlist.Click += (object sender, EventArgs e) =>
             {
-                Intent conIntent = new Intent(this, typeof(DetailActivity)); //A button for switching to Connection View
-                StartActivity(conIntent);
+                IList<SerMod> test = new List<SerMod>();
+                SerMod t1 = new SerMod("1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;");
+                SerMod t2 = new SerMod("2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;");
+                SerMod t3 = new SerMod("3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;");
+                test.Add(t1);
+                test.Add(t2);
+                test.Add(t3);
+                servlist = test;
+
+                string msg = "";
+                foreach (SerMod ele in test) { msg += (ele.ToStringExt() + "/"); }
+                Intent result = new Intent();
+                result.SetClass(this, typeof(ServActivity));
+                result.PutExtra("servlist", msg);
+                StartActivity(result);
             };
         }
 
@@ -103,7 +119,7 @@ namespace SysMonMS
             {
                 cSocket.Connect(new IPEndPoint(ip, port));
                 UpdateMsg("succed");
-                SendMessage("client");
+                SendMessage("GetServerList");
             }
             catch
             {
@@ -115,10 +131,7 @@ namespace SysMonMS
             cThread.Start();
 
         }
-        /// <summary>
-        /// 接收消息
-        /// </summary>
-        /// <param name="clientSocket"></param>
+
         private void ReceiveMessage()
         {
             while (true)
@@ -152,8 +165,8 @@ namespace SysMonMS
         {
             if (cSocket.Connected == true)
             {
-                cSocket.Shutdown(SocketShutdown.Both);
-                cSocket.Close();
+                //cSocket.Shutdown(SocketShutdown.Both);
+                //cSocket.Close();
                 UpdateMsg("Disconnected.");
             }
             else
@@ -161,7 +174,6 @@ namespace SysMonMS
                 UpdateMsg("No connection existed.");
             }
         }
-
         private class ProgressHandler : Handler
         {
             private MainActivity samples;

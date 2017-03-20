@@ -22,8 +22,24 @@ namespace SysMonMS
             SetContentView(Resource.Layout.Detail);
             // Create your application here
 
+            string prefix = Intent.GetStringExtra("serv");
+            SerMod ss = new SerMod(prefix);
+
             WebView wv = FindViewById<WebView>(Resource.Id.webView_detail);
+
+            WebSettings settings = wv.Settings;
+            settings.JavaScriptEnabled = true;
+            settings.LoadWithOverviewMode = true;
+            //settings.setSupportZoom = true;
+            settings.DomStorageEnabled = true;  // 
+            //settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+            settings.AllowFileAccess = true;// 设置允许访问文件数据  
+            settings.UseWideViewPort = true;
+            //settings.setSupportMultipleWindows(true);
+            settings.BlockNetworkImage = false;  ///同步请求图片  
+
             wv.LoadUrl("http://tu6.myweb.cs.uwindsor.ca/n.html");
+            
         }
     }
 }

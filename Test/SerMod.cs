@@ -1,11 +1,8 @@
-using System;
-using System.Text;
-using System.Net.Sockets;
-using System.Net;
-using System.Threading;
+﻿using System.Runtime.InteropServices;
 
-namespace SysMonMS
+namespace Test
 {
+    [StructLayout(LayoutKind.Sequential)]
     public class SerMod
     {
         public int phy_cpu_num;
@@ -94,29 +91,6 @@ namespace SysMonMS
             result += (DISK_us + ";");
             result += (DISK_fr + ";");
             return result;
-        }
-    }
-
-    public class StringURL
-    {
-        public static bool isEmpty(string input)    //Determine the EditView of the IP address and the port are empty
-        {
-            if (input == null || "".Equals(input))
-            {
-                return true;
-            }
-            else
-            {
-                for (int i = 0; i < input.Length; i++)
-                {
-                    char c = input[i];
-                    if (c != ' ' && c != '\t' && c != '\r' && c != '\n')
-                    {
-                        return false;
-                    }
-                }
-            }
-            return true;
         }
     }
 }

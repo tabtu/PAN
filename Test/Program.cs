@@ -4,35 +4,10 @@ using System.Runtime.InteropServices;
 using System.Net.Sockets;
 using System.Net;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace Test
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    [StructLayout(LayoutKind.Sequential)]
-    public class SerMod
-    {
-        public int phy_cpu_num;
-        public int log_cpu_num;
-        public int cpu_num;
-        public double totalWload;
-        public double wload1m;
-        public double wload5m;
-        public double wload15m;
-        public double CPUload_us;
-        public double CPUload_sy;
-        public double CPUload_ni;
-        public double CPUload_id;
-        public double CPUload_wa;
-        public long MEM_total;
-        public long MEM_phy_F;
-        public long MEM_cach_F;
-        public long MEM_used;
-        public int DISK_us;
-        public int DISK_fr;
-    }
-
     class SocketClient
     {
 
@@ -178,9 +153,34 @@ namespace Test
             Console.WriteLine("int: " + sizeof(int));
             Console.WriteLine("long: " + sizeof(long));
             Console.WriteLine("double: " + sizeof(double));
-            Console.WriteLine("Model: " + Marshal.SizeOf(new SerMod()));
 
-            SocketClient.Init("222.222.222.3", 18888);
+            IList<SerMod> test = new List<SerMod>();
+            SerMod t1 = new SerMod("1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;");
+            SerMod t2 = new SerMod("2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;");
+            SerMod t3 = new SerMod("3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;");
+            test.Add(t1);
+            test.Add(t2);
+            test.Add(t3);
+
+            string tmp = "";
+            foreach(SerMod ele in test) { tmp += (ele.ToStringExt() + "/"); }
+            Console.WriteLine(tmp);
+            Console.WriteLine("Model: " + Marshal.SizeOf(t1));
+
+
+
+
+            string[] smlist = tmp.Split('/');
+            IList<SerMod> mylist = new List<SerMod>();
+            for (int i = 0; i < smlist.Length - 1; i++)
+            {
+                SerMod ss = new SerMod(smlist[i]);
+                mylist.Add(ss);
+            }
+
+            Console.WriteLine(mylist.Count);
+
+            //SocketClient.Init("222.222.222.3", 18888);
         }
     }
 }

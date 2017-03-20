@@ -1,5 +1,0 @@
-C:\ttxy\workspace\SysMonMS\Test\bin\Debug\Test.exe.config
-C:\ttxy\workspace\SysMonMS\Test\bin\Debug\Test.exe
-C:\ttxy\workspace\SysMonMS\Test\bin\Debug\Test.pdb
-C:\ttxy\workspace\SysMonMS\Test\obj\Debug\Test.exe
-C:\ttxy\workspace\SysMonMS\Test\obj\Debug\Test.pdb
