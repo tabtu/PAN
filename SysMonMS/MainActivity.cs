@@ -49,7 +49,7 @@ namespace SysMonMS
             btn_cancel.Enabled = false;
             btn_gtlist.Enabled = false;
 
-            et_ip.Text = "10.143.8.235";
+            //et_ip.Text = "222.222.222.3";
             et_port.Text = "18888";
 
             cHandler = new ProgressHandler(this);
@@ -147,9 +147,8 @@ namespace SysMonMS
                         cHandler.SendMessage(msg);
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
-                    //showmsg(ex.Message);
                     cSocket.Shutdown(SocketShutdown.Both);
                     cSocket.Close();
                     break;

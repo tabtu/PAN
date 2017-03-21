@@ -6,7 +6,7 @@ using Android.Widget;
 
 namespace SysMonMS
 {
-    [Activity(Label = "ListActivity")]
+    [Activity(Label = "ServerList")]
     public class ServActivity : ListActivity
     {
         private IList<SerMod> serv;
